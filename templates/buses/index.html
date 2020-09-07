@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+<div class="container">
+  {% if perms.buses.add_bussescompany %}
+  <a href="create" class="button is-info">New Bus Add</a>
+  {% endif %}
+</div>
+{% for bus in buses %}
+<div class="card">
+
+  <header class="card-header">
+    <p class="card-header-title">
+      <strong>{{ bus.name }}</strong>
+    </p>
+    <a href="#" class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </a>
+  </header>
+  <div class="card-content">
+    <div class="content">
+        HQ : {{ bus.head_office }}<br>
+        Staff : {{ bus.staff_count }}
+    </div>
+  </div>
+  <footer class="card-footer">
+    {% if perms.buses.change_bussescompany %}
+    <a href="{% url 'update' bus.id %}" class="card-footer-item">Edit</a>
+    {% endif %}
+    {% if perms.buses.delete_bussescompany%}
+    <a href="{% url 'delete' bus.id %}" class="card-footer-item">Delete</a>
+    {% endif %}
+  </footer>
+</div>
+{% endfor %}
+{% endblock %}
